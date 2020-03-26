@@ -1,0 +1,468 @@
+<!doctype html>
+<html>
+
+<head>
+<title>Confirmed Cases of COVID-19 in New York City</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<style>
+
+html, body, div, h1, p, a, b, u, i, header, footer {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+html, body {
+    height: 100%;
+}
+body {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    font: 10px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    color: #333;
+}
+
+header {
+    margin: 0 0 6em;
+    padding: 7.2em 9.6em 0;
+}
+
+article {
+    padding: 0 8.8em 0 9.6em;
+    flex: 1 0 auto;
+}
+
+footer {
+    background: #f2f2f2;
+    margin: 6em 0 0;
+    padding: 4.2em 9.6em;
+    text-align: right;
+    flex-shrink: 0;
+    clear: both;
+}
+
+footer a:link, footer a:visited {
+    font-size: 1.8em;
+    border: none;
+    color: #999;
+}
+
+footer a:hover, footer a:active {
+    color: #666;
+}
+
+h1 {
+    font-size: 4.2em;
+    line-height: 1.25;
+    margin: 0 0 0.34em;
+}
+
+h1 b {
+    color: #bc0000;
+    font-weight: 650;
+}
+
+p {
+    font-size: 2.1em;
+    line-height: 1.5;
+    color: #777;
+}
+
+a:link, a:visited {
+    color: #777;
+    border-bottom: 1px solid #777;
+    padding-bottom: .1em;
+    text-decoration: none;
+    transition: .2s all ease-in-out;
+}
+
+a:hover, a:active {
+    color: #444;
+    border-color: #444;
+}
+
+canvas{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+form {
+    background: #f2f2f2;
+    margin: 1.8em 0 0;
+    float: right;
+    border-radius: 50em;
+}
+
+form label {
+    line-height: 1;
+    padding: 1.2em;
+}
+
+form label span {
+    line-height: 1.5;
+    vertical-align: top;
+    padding-right: .6em;
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #999;
+    transition: .2s color ease-in-out;
+}
+
+/* Switch styles by Pontus Nilsson — https://www.cssscript.com/realistic-ios-switch-pure-css/ */
+
+.switch {
+  display: inline-block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.switch i {
+  position: relative;
+  display: inline-block;
+  margin-right: .5rem;
+  width: 46px;
+  height: 26px;
+  background-color: #ddd;
+  border-radius: 23px;
+  vertical-align: text-bottom;
+  transition: all 0.3s linear;
+}
+
+.switch i::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 42px;
+  height: 22px;
+  background-color: #ddd;
+  border-radius: 11px;
+  transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+  transition: all 0.25s linear;
+}
+
+.switch i::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  background-color: #fff;
+  border-radius: 11px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+  transform: translate3d(2px, 2px, 0);
+  transition: all 0.2s ease-in-out;
+}
+
+.switch:active i::after {
+  width: 28px;
+  transform: translate3d(2px, 2px, 0);
+}
+
+.switch input:checked ~ span { color: #666; }
+
+.switch:active input:checked + i::after { transform: translate3d(16px, 2px, 0); }
+
+.switch input { display: none; }
+
+.switch input:checked + i { background-color: #999; }
+
+.switch input:checked + i::before { transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0); }
+
+.switch input:checked + i::after { transform: translate3d(22px, 2px, 0); }
+
+</style>
+</head>
+
+<body>
+    <header>
+    <h1>There are <b>20,011 confirmed cases</b> of COVID-19 in New York City.</h1>
+    <p>
+        <a href="https://www1.nyc.gov/assets/doh/downloads/pdf/imm/covid-19-daily-data-summary.pdf" target="_blank">Source data</a> collected 
+        <time id="hoursSince" datetime="2020-03-25T17:30:00-04:00" title="Yesterday, March 25, at 5:30 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental Hygiene</p>
+    </header>
+    <article>
+	<div style="width:100%">
+		<canvas id="canvas" height="125%"></canvas>
+    </div>
+    
+    <form>
+        <label class="switch">
+            <input id="logarithmic" type="checkbox"> <i></i> <span>Logarithmic</span>
+        </label>
+    </form>
+    </article>
+
+    <footer>
+        <a href="https://github.com/trevf/covid19cases-nyc" title="View the source code for this project">GitHub</a>
+    </footer>
+
+	<script>
+        Chart.defaults.global.elements.line.fill = false;
+		var config = {
+			type: 'line',
+			data: {
+                labels: [
+                    'February 29, 2020',
+                    'March 1, 2020',
+                    'March 2, 2020',
+                    'March 3, 2020',
+                    'March 4, 2020',
+                    'March 5, 2020',
+                    'March 6, 2020',
+                    'March 7, 2020',
+                    'March 8, 2020',
+                    'March 9, 2020',
+                    'March 10, 2020',
+                    'March 11, 2020',
+                    'March 12, 2020',
+                    'March 13, 2020',
+                    'March 14, 2020',
+                    'March 15, 2020',
+                    'March 16, 2020',
+                    'March 17, 2020',
+                    'March 18, 2020',
+                    'March 19, 2020',
+                    'March 20, 2020',
+                    'March 21, 2020',
+                    'March 22, 2020',
+                    'March 23, 2020',
+                    'March 24, 2020',
+                    'March 25, 2020'
+				],
+                datasets: [{
+                    label: 'Confirmed cases',
+                    cubicInterpolationMode: 'monotone',
+                    borderColor: 'rgba(188,0,0,1)',
+                    backgroundColor: 'rgba(188,0,0,1)',
+                    borderWidth: 4,
+                    borderCapStyle: 'round',
+                    pointRadius: 0,
+                    data: [
+                        0,
+                        1,
+                        1,
+                        2,
+                        2,
+                        4,
+                        7,
+                        12,
+                        14,
+                        25,
+                        32,
+                        53,
+                        88,
+                        137,
+                        185,
+                        269,
+                        464,
+                        923,
+                        2009,
+                        3954,
+                        5683,
+                        8115,
+                        10764,
+                        13119,
+                        15597,
+                        20011
+                    ]
+                },{
+                    label: 'Deaths',
+                    cubicInterpolationMode: 'monotone',
+                    borderColor: 'rgba(0,0,0,0.75)',
+                    backgroundColor: 'rgba(0,0,0,0.75)',
+                    borderWidth: 4,
+                    borderCapStyle: 'round',
+                    pointRadius: 0,
+                    data: [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        1,
+                        1,
+                        5,
+                        7,
+                        10,
+                        19,
+                        26,
+                        43,
+                        60,
+                        63,
+                        125,
+                        192,
+                        280
+                    ]
+                }]
+            },
+			options: {
+				responsive: true,
+				tooltips: {
+                    mode: 'index',
+                    position: 'nearest',
+                    intersect: false,
+                    backgroundColor: 'rgba(255,255,255,0.95)',
+                    titleFontColor: 'rgba(0,0,0,0.9)',
+                    titleFontSize: 20,
+                    titleFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
+                    titleMarginBottom: 12,
+                    bodyFontColor: 'rgba(0,0,0,0.7)',
+                    bodyFontSize: 16,
+                    bodyFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
+                    bodySpacing: 10,
+                    borderColor: 'rgba(0,0,0,0.4)',
+                    borderWidth: 1,
+                    spacing: 12,
+                    caretSize: 10,
+                    cornerRadius: 12,
+                    multiKeyBackground: 'rgba(0,0,0,1)',
+                    xPadding: 18,
+                    yPadding: 16,
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var tooltipValue = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                            if (tooltipValue == 1) tooltipLabel = tooltipLabel.slice(0, -1);
+                            return ' ' + parseInt(tooltipValue).toLocaleString() + ' ' + tooltipLabel.toLowerCase();
+                        }
+                    }
+                },
+                legend: {
+                    display: false
+                },
+				hover: {
+					mode: 'nearest',
+					intersect: true
+                },
+                layout: {
+                    padding: { top: 0, right: 5, bottom: 0, left: -10 }
+                }
+			}
+        };
+        
+        function updateScales(chart,chartType) {
+            var xDay = chart.scales['xDay'];
+            var xDate = chart.scales['xDate'];
+            var yScale = chart.scales['yScale'];
+            chart.options.scales = {
+                xAxes: [{
+                    id: 'xDay',
+                    display: true,
+                    type: 'time',
+                    gridLines: {
+                        display: false,
+                        drawBorder: false,
+                        drawTicks: false    
+                    },
+                    ticks: {
+                        maxRotation: 0,
+                        padding: 30,
+                        fontSize: 13,
+                        fontColor: 'rgba(0,0,0,0.25)',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif'
+                    },
+                    time: {
+                        displayFormats: {
+                            day: 'dd'
+                        }
+                    }
+                },{
+                    id: 'xDate',
+                    display: true,
+                    type: 'time',
+                    gridLines: {
+                        display: false,
+                        drawBorder: false,
+                        drawTicks: false    
+                    },
+                    ticks: {
+                        maxRotation: 0,
+                        padding: 0,
+                        fontSize: 20,
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif'
+                    },
+                    time: {
+                        displayFormats: {
+                            day: 'D'
+                        }
+                    }
+                }],
+                yAxes: [{
+                    id: 'yScale',
+                    display: true,
+                    type: chartType,
+                    gridLines: {
+                        drawBorder: false,
+                        drawTicks: false,
+                        borderDash: [1, 6],
+                        lineWidth: 1,
+                        color: 'rgba(0,0,0,0.5)'
+                    },
+                    ticks: {
+                        max: 25000,
+                        padding: 20,
+                        fontSize: 20,
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
+                        callback: function(value, index, values) {
+                            return value.toLocaleString()
+                        }
+                    },
+                    afterBuildTicks: function(axis, ticks){
+                        if (chartType == 'logarithmic')
+                            axis.ticks = [0,10,100,1000,10000,25000];
+                        return;
+                    },
+                    scaleLabel: {
+                        display: false
+                    }
+                }]
+            };
+            chart.update();
+            xDay = chart.scales['xDay'];
+            xDate = chart.scales['xDate'];
+            yScale = chart.scales['yScale'];
+        }
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+            var covidChart = new Chart(ctx, config);
+            updateScales(covidChart, 'linear')
+
+            var scaleSwitch = document.getElementById("logarithmic");
+            scaleSwitch.addEventListener( 'change', function() {
+                if(this.checked) {
+                    updateScales(covidChart, 'logarithmic')
+                } else {
+                    updateScales(covidChart, 'linear')
+                }
+            });
+
+            var hoursSince = document.getElementById("hoursSince");
+            var reportDate = new Date(hoursSince.getAttribute('datetime'));
+            var now = new Date();
+            var hourDelta = Math.round((now.getTime() - reportDate.getTime()) / 1000 / 3600);
+            hoursSince.innerHTML = hourDelta + ' hours ago';
+
+		};
+
+	</script>
+</body>
+
+</html>
