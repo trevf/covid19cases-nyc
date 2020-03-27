@@ -49,16 +49,6 @@ footer {
     clear: both;
 }
 
-footer a:link, footer a:visited {
-    font-size: 1.8em;
-    border: none;
-    color: #999;
-}
-
-footer a:hover, footer a:active {
-    color: #666;
-}
-
 h1 {
     font-size: 4.2em;
     line-height: 1.25;
@@ -87,6 +77,32 @@ a:link, a:visited {
 a:hover, a:active {
     color: #444;
     border-color: #444;
+}
+
+time {
+    /* background: linear-gradient(to right, #777 33%, rgba(119, 119, 119, 0) 0%) bottom/3px 1px repeat-x; */
+    font-weight: 700;
+    padding-bottom: .15em;
+    cursor: help;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer li {
+    display: inline-block;
+}
+
+footer a:link, footer a:visited {
+    font-size: 1.8em;
+    margin-left: 2.1em;
+    border: none;
+    color: #999;
+}
+
+footer a:hover, footer a:active {
+    color: #666;
 }
 
 canvas{
@@ -184,10 +200,10 @@ form label span {
 
 <body>
     <header>
-    <h1>There are <b>21,873 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
+    <h1>There are <b>23,112 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
     <p>
-        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-03-26-0845.pdf" target="_blank">Source data</a> collected 
-        <time id="hoursSince" datetime="2020-03-26T08:45:00-04:00" title="March 26, at 8:45 a.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
+        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-03-26-1700.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected 
+        <time id="hoursSince" datetime="2020-03-26T17:00:00-04:00" title="March 26, at 5:00 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
     </header>
     <article>
 	<div style="width:100%">
@@ -202,7 +218,10 @@ form label span {
     </article>
 
     <footer>
-        <a href="https://github.com/trevf/covid19cases-nyc" title="View the source code for this project">GitHub</a>
+        <ul>
+        <li><a href="data/covid19cases-nyc.csv" title="View the source data set" target="_blank">CSV</a></li>
+        <li><a href="https://github.com/trevf/covid19cases-nyc" title="View the source code for this project" target="_blank">GitHub</a></li>
+        </ul>
     </footer>
 
 	<script>
@@ -274,7 +293,7 @@ form label span {
                         13119,
                         15597,
                         20011,
-                        21873
+                        23112
                     ]
                 },{
                     label: 'Deaths',
@@ -311,7 +330,7 @@ form label span {
                         125,
                         192,
                         280,
-                        281
+                        365
                     ]
                 }]
             },
