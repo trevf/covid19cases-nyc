@@ -200,10 +200,10 @@ form label span {
 
 <body>
     <header>
-    <h1>There are <b>26,697 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
+    <h1>There are <b>30,765 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
     <p>
-        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-03-27-1600.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected 
-        <time id="hoursSince" datetime="2020-03-27T16:00:00-04:00" title="March 27, at 4:00 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
+        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-03-28-1600.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected 
+        <time id="hoursSince" datetime="2020-03-28T16:00:00-04:00" title="March 28, at 4:00 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
     </header>
     <article>
 	<div style="width:100%">
@@ -257,46 +257,10 @@ form label span {
                     'March 24, 2020',
                     'March 25, 2020',
                     'March 26, 2020',
-                    'March 27, 2020'
+                    'March 27, 2020',
+                    'March 28, 2020'
 				],
                 datasets: [{
-                    label: 'Tests',
-                    cubicInterpolationMode: 'monotone',
-                    borderColor: 'rgba(207,210,219,1)',
-                    backgroundColor: 'rgba(207,210,219,1)',
-                    borderWidth: 4,
-                    borderCapStyle: 'round',
-                    pointRadius: 0,
-                    data: [
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        51404
-                    ]
-                },{
                     label: 'Confirmed cases',
                     cubicInterpolationMode: 'monotone',
                     borderColor: 'rgba(188,0,0,1)',
@@ -332,7 +296,8 @@ form label span {
                         15597,
                         20011,
                         23112,
-                        26697
+                        26697,
+                        30765
                     ]
                 },{
                     label: 'Deaths',
@@ -370,7 +335,8 @@ form label span {
                         192,
                         280,
                         365,
-                        450
+                        450,
+                        672
                     ]
                 }]
             },
@@ -478,7 +444,7 @@ form label span {
                         color: 'rgba(0,0,0,0.5)'
                     },
                     ticks: {
-                        max: 60000,
+                        max: 35000,
                         padding: 20,
                         fontSize: 20,
                         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
@@ -488,7 +454,7 @@ form label span {
                     },
                     afterBuildTicks: function(axis, ticks){
                         if (chartType == 'logarithmic')
-                            axis.ticks = [0,10,100,1000,10000,60000];
+                            axis.ticks = [0,10,100,1000,10000,35000];
                         return;
                     },
                     scaleLabel: {
