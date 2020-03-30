@@ -2,7 +2,7 @@
 
 This repository contains the source code for **[covid19cases.nyc](//covid19cases.nyc)**, which is a visualization of New York City's confirmed coronavirus disease (COVID-19) cases and deaths to date.
 
-It also contains an **[archive of all daily NYC COVID-19 case summary PDFs](https://github.com/trevf/covid19cases-nyc/tree/master/pdf)** that have been provided by the New York City Department of Health and Mental Hygiene (NYC DOHMH) since March 18, 2020, and a compiled **[CSV of all NYC COVID-19 confirmed case and death counts](https://raw.githubusercontent.com/trevf/covid19cases-nyc/master/csv/covid19cases-nyc.csv)** since February 29, 2020.
+It also contains an **[archive of all daily NYC COVID-19 case summary PDFs](https://github.com/trevf/covid19cases-nyc/tree/master/pdf)** that have been provided by the New York City Department of Health and Mental Hygiene (NYC DOHMH) since March 18, 2020, and a compiled **[CSV of all NYC COVID-19 confirmed case and death counts](https://raw.githubusercontent.com/trevf/covid19cases-nyc/master/data/covid19cases-nyc.csv)** since February 29, 2020.
 
 ## About the data
 
