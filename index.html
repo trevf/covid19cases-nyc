@@ -200,10 +200,10 @@ form label span {
 
 <body>
     <header>
-    <h1>There are <b>63,767 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
+    <h1>There are <b>64,955 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
     <p>
-        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-04-05-0945.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected 
-        <time id="hoursSince" datetime="2020-04-05T09:45:00-04:00" title="April 5, at 9:45 a.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
+        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-04-05-1645.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected 
+        <time id="hoursSince" datetime="2020-04-05T16:45:00-04:00" title="April 5, at 4:45 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
     </header>
     <article>
 	<div style="width:100%">
@@ -313,7 +313,7 @@ form label span {
                         49707,
                         56289,
                         60850,
-                        63767
+                        64955
                     ]
                 },{
                     label: 'Deaths',
@@ -360,7 +360,7 @@ form label span {
                         1562,
                         1867,
                         2254,
-                        2256
+                        2472
                     ]
                 }]
             },
@@ -468,7 +468,7 @@ form label span {
                         color: 'rgba(0,0,0,0.5)'
                     },
                     ticks: {
-                        max: 65000,
+                        max: 70000,
                         padding: 20,
                         fontSize: 20,
                         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
@@ -478,7 +478,7 @@ form label span {
                     },
                     afterBuildTicks: function(axis, ticks){
                         if (chartType == 'logarithmic')
-                            axis.ticks = [0,10,100,1000,10000,65000];
+                            axis.ticks = [0,10,100,1000,10000,70000];
                         return;
                     },
                     scaleLabel: {
