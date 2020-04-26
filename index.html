@@ -200,10 +200,10 @@ form label span {
 
 <body>
     <header>
-    <h1>There are <b>146,139 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
+    <h1>There are <b>150,576 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
     <p>
-        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-04-23-1800.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected
-        <time id="hoursSince" datetime="2020-04-23T18:00:00-04:00" title="April 23, at 6:00 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
+        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-04-24-1800.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected
+        <time id="hoursSince" datetime="2020-04-24T18:00:00-04:00" title="April 24, at 6:00 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
     </header>
     <article>
 	<div style="width:100%">
@@ -284,7 +284,8 @@ form label span {
                     'April 20, 2020',
                     'April 21, 2020',
                     'April 22, 2020',
-                    'April 23, 2020'
+                    'April 23, 2020',
+                    'April 24, 2020'
 				],
                 datasets: [{
                     label: 'Confirmed cases',
@@ -349,7 +350,8 @@ form label span {
                         134874,
                         138435,
                         141754,
-                        146139
+                        146139,
+                        150576
                     ]
                 },{
                     label: 'Deaths',
@@ -414,7 +416,8 @@ form label span {
                         9562,
                         9944,
                         10290,
-                        10746
+                        10746,
+                        10961
                     ]
                 }]
             },
@@ -522,7 +525,7 @@ form label span {
                         color: 'rgba(0,0,0,0.5)'
                     },
                     ticks: {
-                        max: 150000,
+                        max: 160000,
                         padding: 20,
                         fontSize: 20,
                         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
@@ -532,7 +535,7 @@ form label span {
                     },
                     afterBuildTicks: function(axis, ticks){
                         if (chartType == 'logarithmic')
-                            axis.ticks = [0,10,100,1000,10000,150000];
+                            axis.ticks = [0,10,100,1000,10000,160000];
                         return;
                     },
                     scaleLabel: {
