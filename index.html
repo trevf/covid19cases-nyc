@@ -4,6 +4,8 @@
 <head>
 <title>Confirmed Cases of COVID-19 in New York City</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
 <style>
 
 html, body, div, h1, p, a, b, u, i, header, footer {
@@ -200,10 +202,10 @@ form label span {
 
 <body>
     <header>
-    <h1>There are <b>187,848 confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
+    <h1>There are <b>100,000+ confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
     <p>
-        <a href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-2020-05-14-1800.pdf" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected
-        <time id="hoursSince" datetime="2020-05-14T18:00:00-04:00" title="May 14, at 6:00 p.m. ET">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
+        <a id="sourceLink" href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected
+        <time id="hoursSince">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
     </header>
     <article>
 	<div style="width:100%">
@@ -225,410 +227,217 @@ form label span {
     </footer>
 
 	<script>
-        Chart.defaults.global.elements.line.fill = false;
-		var config = {
-			type: 'line',
-			data: {
-                labels: [
-                    'February 29, 2020',
-                    'March 1, 2020',
-                    'March 2, 2020',
-                    'March 3, 2020',
-                    'March 4, 2020',
-                    'March 5, 2020',
-                    'March 6, 2020',
-                    'March 7, 2020',
-                    'March 8, 2020',
-                    'March 9, 2020',
-                    'March 10, 2020',
-                    'March 11, 2020',
-                    'March 12, 2020',
-                    'March 13, 2020',
-                    'March 14, 2020',
-                    'March 15, 2020',
-                    'March 16, 2020',
-                    'March 17, 2020',
-                    'March 18, 2020',
-                    'March 19, 2020',
-                    'March 20, 2020',
-                    'March 21, 2020',
-                    'March 22, 2020',
-                    'March 23, 2020',
-                    'March 24, 2020',
-                    'March 25, 2020',
-                    'March 26, 2020',
-                    'March 27, 2020',
-                    'March 28, 2020',
-                    'March 29, 2020',
-                    'March 30, 2020',
-                    'March 31, 2020',
-                    'April 1, 2020',
-                    'April 2, 2020',
-                    'April 3, 2020',
-                    'April 4, 2020',
-                    'April 5, 2020',
-                    'April 6, 2020',
-                    'April 7, 2020',
-                    'April 8, 2020',
-                    'April 9, 2020',
-                    'April 10, 2020',
-                    'April 11, 2020',
-                    'April 12, 2020',
-                    'April 13, 2020',
-                    'April 14, 2020',
-                    'April 15, 2020',
-                    'April 16, 2020',
-                    'April 17, 2020',
-                    'April 18, 2020',
-                    'April 19, 2020',
-                    'April 20, 2020',
-                    'April 21, 2020',
-                    'April 22, 2020',
-                    'April 23, 2020',
-                    'April 24, 2020',
-                    'April 25, 2020',
-                    'April 26, 2020',
-                    'April 27, 2020',
-                    'April 28, 2020',
-                    'April 29, 2020',
-                    'April 30, 2020',
-                    'May 1, 2020',
-                    'May 2, 2020',
-                    'May 3, 2020',
-                    'May 4, 2020',
-                    'May 5, 2020',
-                    'May 6, 2020',
-                    'May 7, 2020',
-                    'May 8, 2020',
-                    'May 9, 2020',
-                    'May 10, 2020',
-                    'May 11, 2020',
-                    'May 12, 2020',
-                    'May 13, 2020',
-                    'May 14, 2020'
-				],
-                datasets: [{
-                    label: 'Confirmed cases',
-                    cubicInterpolationMode: 'monotone',
-                    borderColor: 'rgba(188,0,0,1)',
-                    backgroundColor: 'rgba(188,0,0,1)',
-                    borderWidth: 4,
-                    borderCapStyle: 'round',
-                    pointRadius: 0,
-                    data: [
-                        0,
-                        1,
-                        1,
-                        2,
-                        2,
-                        4,
-                        7,
-                        12,
-                        14,
-                        25,
-                        32,
-                        53,
-                        88,
-                        137,
-                        185,
-                        269,
-                        464,
-                        923,
-                        2009,
-                        3954,
-                        5683,
-                        8115,
-                        10764,
-                        13119,
-                        15597,
-                        20011,
-                        23112,
-                        26697,
-                        30765,
-                        33474,
-                        38087,
-                        41771,
-                        45707,
-                        49707,
-                        56289,
-                        60850,
-                        64955,
-                        68776,
-                        74601,
-                        80204,
-                        87725,
-                        94409,
-                        98715,
-                        104410,
-                        107263,
-                        111424,
-                        117565,
-                        122148,
-                        126368,
-                        129788,
-                        132467,
-                        134874,
-                        138435,
-                        141754,
-                        146139,
-                        150576,
-                        153204,
-                        156100,
-                        157713,
-                        159865,
-                        162212,
-                        164505,
-                        166883,
-                        168845,
-                        170534,
-                        171723,
-                        173288,
-                        174709,
-                        176086,
-                        177481,
-                        178766,
-                        183662,
-                        184319,
-                        185206,
-                        186293,
-                        187848
-                    ]
-                },{
-                    label: 'Deaths',
-                    cubicInterpolationMode: 'monotone',
-                    borderColor: 'rgba(0,0,0,0.75)',
-                    backgroundColor: 'rgba(0,0,0,0.75)',
-                    borderWidth: 4,
-                    borderCapStyle: 'round',
-                    pointRadius: 0,
-                    data: [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        1,
-                        1,
-                        5,
-                        7,
-                        10,
-                        19,
-                        26,
-                        43,
-                        60,
-                        63,
-                        125,
-                        192,
-                        280,
-                        365,
-                        450,
-                        672,
-                        776,
-                        914,
-                        1096,
-                        1374,
-                        1562,
-                        1867,
-                        2254,
-                        2472,
-                        2738,
-                        3544,
-                        4260,
-                        4778,
-                        5429,
-                        5742,
-                        6182,
-                        6589,
-                        6840,
-                        7563,
-                        7890,
-                        8448,
-                        8811,
-                        9101,
-                        9562,
-                        9944,
-                        10290,
-                        10746,
-                        10961,
-                        11460,
-                        11708,
-                        11820,
-                        12287,
-                        12571,
-                        13000,
-                        13156,
-                        13319,
-                        13536,
-                        13724,
-                        13938,
-                        14162,
-                        14389,
-                        14482,
-                        14753,
-                        14928,
-                        15101,
-                        15233,
-                        15349,
-                        15422
-                    ]
-                }]
-            },
-			options: {
-				responsive: true,
-				tooltips: {
-                    mode: 'index',
-                    position: 'nearest',
-                    intersect: false,
-                    backgroundColor: 'rgba(255,255,255,0.95)',
-                    titleFontColor: 'rgba(0,0,0,0.9)',
-                    titleFontSize: 20,
-                    titleFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
-                    titleMarginBottom: 12,
-                    bodyFontColor: 'rgba(0,0,0,0.7)',
-                    bodyFontSize: 16,
-                    bodyFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
-                    bodySpacing: 10,
-                    borderColor: 'rgba(0,0,0,0.4)',
-                    borderWidth: 1,
-                    spacing: 12,
-                    caretSize: 10,
-                    cornerRadius: 12,
-                    multiKeyBackground: 'rgba(0,0,0,1)',
-                    xPadding: 18,
-                    yPadding: 16,
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var tooltipValue = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                            var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
-                            if (tooltipValue == 1) tooltipLabel = tooltipLabel.slice(0, -1);
-                            return ' ' + parseInt(tooltipValue).toLocaleString() + ' ' + tooltipLabel.toLowerCase();
-                        }
-                    }
-                },
-                legend: {
-                    display: false
-                },
-				hover: {
-					mode: 'nearest',
-					intersect: true
-                },
-                layout: {
-                    padding: { top: 0, right: 5, bottom: 0, left: -10 }
-                }
-			}
-        };
+
+    Papa.parse("data/covid19cases-nyc.csv", {
+      download: true,
+      header: true,
+      complete: function(results) {
         
-        function updateScales(chart,chartType) {
-            var xDay = chart.scales['xDay'];
-            var xDate = chart.scales['xDate'];
-            var yScale = chart.scales['yScale'];
-            chart.options.scales = {
-                xAxes: [{
-                    id: 'xDay',
-                    display: true,
-                    type: 'time',
-                    gridLines: {
-                        display: false,
-                        drawBorder: false,
-                        drawTicks: false    
-                    },
-                    ticks: {
-                        maxRotation: 0,
-                        padding: 30,
-                        fontSize: 13,
-                        fontColor: 'rgba(0,0,0,0.25)',
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif'
-                    },
-                    time: {
-                        displayFormats: {
-                            day: 'dd'
+        // Populate data arrays            
+        var dates = [];
+        var cases = [];
+        var deaths = [];
+
+        results.data.forEach(function(record){
+            var recordDate = record.reportTime.split("T")[0];
+            if (recordDate != dates[dates.length - 1]) {
+              dates.push(recordDate);
+              cases.push(record.confirmedCases);
+              deaths.push(record.deaths);
+            } else {
+              cases[cases.length - 1] = record.confirmedCases;
+              deaths[deaths.length - 1] = record.deaths;
+            }
+        });
+        
+        // Generate y-axis max
+        var maxCount = Math.ceil(cases[cases.length - 1]/25000)*25000;
+        
+        // Format case count heading
+        var caseCount = results.data[results.data.length - 1];
+        var caseCountHeader = document.getElementsByTagName("h1")[0];
+        var caseCountTime = document.getElementById("hoursSince");
+        var caseCountFriendlyTime = Date.parse(caseCount.reportTime).toString("MMMM d, a\\t h:mm p.\\m. ET");
+        caseCountHeader.getElementsByTagName("b")[0].innerHTML = Number(caseCount.confirmedCases).toLocaleString() + " confirmed cases";
+        caseCountTime.setAttribute("datetime",caseCount.reportTime);
+        caseCountTime.setAttribute("title",caseCountFriendlyTime);
+        var reportDate = new Date(caseCount.reportTime); var now = new Date();
+        var hourDelta = Math.round((now.getTime() - reportDate.getTime()) / 1000 / 3600);
+        caseCountTime.innerHTML = hourDelta + ' ' + (hourDelta == 1 ? 'hour' : 'hours') + ' ago';
+        var sourceLink = document.getElementById("sourceLink");
+        sourceLink.setAttribute("href","https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-"+reportDate.toString("yyyy-MM-dd-HHmm")+".pdf")
+        
+        Chart.defaults.global.elements.line.fill = false;
+    
+        var config = {
+          type: 'line',
+          data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Confirmed cases',
+                        cubicInterpolationMode: 'monotone',
+                        borderColor: 'rgba(188,0,0,1)',
+                        backgroundColor: 'rgba(188,0,0,1)',
+                        borderWidth: 4,
+                        borderCapStyle: 'round',
+                        pointRadius: 0,
+                        data: cases
+                    },{
+                        label: 'Deaths',
+                        cubicInterpolationMode: 'monotone',
+                        borderColor: 'rgba(0,0,0,0.75)',
+                        backgroundColor: 'rgba(0,0,0,0.75)',
+                        borderWidth: 4,
+                        borderCapStyle: 'round',
+                        pointRadius: 0,
+                        data: deaths
+                    }]
+                },
+          options: {
+            responsive: true,
+            tooltips: {
+                        mode: 'index',
+                        position: 'nearest',
+                        intersect: false,
+                        backgroundColor: 'rgba(255,255,255,0.95)',
+                        titleFontColor: 'rgba(0,0,0,0.9)',
+                        titleFontSize: 20,
+                        titleFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
+                        titleMarginBottom: 12,
+                        bodyFontColor: 'rgba(0,0,0,0.7)',
+                        bodyFontSize: 16,
+                        bodyFontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
+                        bodySpacing: 10,
+                        borderColor: 'rgba(0,0,0,0.4)',
+                        borderWidth: 1,
+                        spacing: 12,
+                        caretSize: 10,
+                        cornerRadius: 12,
+                        multiKeyBackground: 'rgba(0,0,0,1)',
+                        xPadding: 18,
+                        yPadding: 16,
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var tooltipValue = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                                var tooltipLabel = data.datasets[tooltipItem.datasetIndex].label;
+                                if (tooltipValue == 1) tooltipLabel = tooltipLabel.slice(0, -1);
+                                return ' ' + parseInt(tooltipValue).toLocaleString() + ' ' + tooltipLabel.toLowerCase();
+                            }
                         }
-                    }
-                },{
-                    id: 'xDate',
-                    display: true,
-                    type: 'time',
-                    gridLines: {
-                        display: false,
-                        drawBorder: false,
-                        drawTicks: false    
                     },
-                    ticks: {
-                        maxRotation: 0,
-                        padding: 0,
-                        fontSize: 20,
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif'
-                    },
-                    time: {
-                        displayFormats: {
-                            day: 'D'
-                        }
-                    }
-                }],
-                yAxes: [{
-                    id: 'yScale',
-                    display: true,
-                    type: chartType,
-                    gridLines: {
-                        drawBorder: false,
-                        drawTicks: false,
-                        borderDash: [1, 6],
-                        lineWidth: 1,
-                        color: 'rgba(0,0,0,0.5)'
-                    },
-                    ticks: {
-                        max: 200000,
-                        padding: 20,
-                        fontSize: 20,
-                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
-                        callback: function(value, index, values) {
-                            return value.toLocaleString()
-                        }
-                    },
-                    afterBuildTicks: function(axis, ticks){
-                        if (chartType == 'logarithmic')
-                            axis.ticks = [0,10,100,1000,10000,200000];
-                        return;
-                    },
-                    scaleLabel: {
+                    legend: {
                         display: false
+                    },
+            hover: {
+              mode: 'nearest',
+              intersect: true
+                    },
+                    layout: {
+                        padding: { top: 0, right: 5, bottom: 0, left: -10 }
                     }
-                }]
+          }
             };
-            chart.update();
-            xDay = chart.scales['xDay'];
-            xDate = chart.scales['xDate'];
-            yScale = chart.scales['yScale'];
+      
+        var ctx = document.getElementById('canvas').getContext('2d');
+        var covidChart = new Chart(ctx, config);
+        updateScales(covidChart, 'linear')
+
+        var scaleSwitch = document.getElementById("logarithmic");
+        scaleSwitch.addEventListener( 'change', function() {
+            if(this.checked) {
+                updateScales(covidChart, 'logarithmic')
+            } else {
+                updateScales(covidChart, 'linear')
+            }
+        });
+            
+        function updateScales(chart,chartType) {
+          var xDay = chart.scales['xDay'];
+          var xDate = chart.scales['xDate'];
+          var yScale = chart.scales['yScale'];
+          chart.options.scales = {
+            xAxes: [{
+                id: 'xDay',
+                display: true,
+                type: 'time',
+                gridLines: {
+                    display: false,
+                    drawBorder: false,
+                    drawTicks: false    
+                },
+                ticks: {
+                    maxRotation: 0,
+                    padding: 30,
+                    fontSize: 13,
+                    fontColor: 'rgba(0,0,0,0.25)',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif'
+                },
+                time: {
+                    displayFormats: {
+                        day: 'dd'
+                    }
+                }
+            },{
+                id: 'xDate',
+                display: true,
+                type: 'time',
+                gridLines: {
+                    display: false,
+                    drawBorder: false,
+                    drawTicks: false    
+                },
+                ticks: {
+                    maxRotation: 0,
+                    padding: 0,
+                    fontSize: 20,
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif'
+                },
+                time: {
+                    displayFormats: {
+                        day: 'D'
+                    }
+                }
+            }],
+            yAxes: [{
+              id: 'yScale',
+              display: true,
+              type: chartType,
+              gridLines: {
+                  drawBorder: false,
+                  drawTicks: false,
+                  borderDash: [1, 6],
+                  lineWidth: 1,
+                  color: 'rgba(0,0,0,0.5)'
+              },
+              ticks: {
+                  max: maxCount,
+                  padding: 20,
+                  fontSize: 20,
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", Arial, sans-serif',
+                  callback: function(value, index, values) {
+                      return value.toLocaleString()
+                  }
+              },
+              afterBuildTicks: function(axis, ticks){
+                  if (chartType == 'logarithmic')
+                      axis.ticks = [0,10,100,1000,10000,maxCount];
+                  return;
+              },
+              scaleLabel: {
+                  display: false
+              }
+            }]
+          };
+          chart.update();
+          xDay = chart.scales['xDay'];
+          xDate = chart.scales['xDate'];
+          yScale = chart.scales['yScale'];
         }
 
+      }
+    });
+
 		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-            var covidChart = new Chart(ctx, config);
-            updateScales(covidChart, 'linear')
-
-            var scaleSwitch = document.getElementById("logarithmic");
-            scaleSwitch.addEventListener( 'change', function() {
-                if(this.checked) {
-                    updateScales(covidChart, 'logarithmic')
-                } else {
-                    updateScales(covidChart, 'linear')
-                }
-            });
-
-            var hoursSince = document.getElementById("hoursSince");
-            var reportDate = new Date(hoursSince.getAttribute('datetime'));
-            var now = new Date();
-            var hourDelta = Math.round((now.getTime() - reportDate.getTime()) / 1000 / 3600);
-            hoursSince.innerHTML = hourDelta + ' ' + (hourDelta == 1 ? 'hour' : 'hours') + ' ago';
-
 		};
 
 	</script>
