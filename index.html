@@ -204,7 +204,7 @@ form label span {
     <header>
     <h1>There are <b>100,000+ confirmed cases</b> of COVID&#8209;19 in New&nbsp;York&nbsp;City.</h1>
     <p>
-        <a id="sourceLink" href="https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/" title="View a PDF of the most recently obtained case summary data" target="_blank">Source data</a> collected
+        <a href="https://www1.nyc.gov/site/doh/covid/covid-19-data.page" title="View the latest data available from NYC Health" target="_blank">Source data</a> collected
         <time id="hoursSince">several hours ago</time> by the NYC Department of Health and Mental&nbsp;Hygiene</p>
     </header>
     <article>
@@ -264,8 +264,6 @@ form label span {
         var reportDate = new Date(caseCount.reportTime); var now = new Date();
         var hourDelta = Math.round((now.getTime() - reportDate.getTime()) / 1000 / 3600);
         caseCountTime.innerHTML = hourDelta + ' ' + (hourDelta == 1 ? 'hour' : 'hours') + ' ago';
-        var sourceLink = document.getElementById("sourceLink");
-        sourceLink.setAttribute("href","https://github.com/trevf/covid19cases-nyc/blob/master/pdf/cases/covid-19-daily-data-summary-"+reportDate.toString("yyyy-MM-dd-HHmm")+".pdf")
         
         Chart.defaults.global.elements.line.fill = false;
     
